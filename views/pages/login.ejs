@@ -1,0 +1,260 @@
+<!-- data is invalid alret -->
+<% if (tag && result) { %>
+  <div class="alert alert-<%=tag%> flash-msg p-3 w-75 mx-auto my-2">
+    <%= result %>
+          <% if (namesNotValid !="" ) { %>
+          <%- include('./dataValidation/names.ejs')%>
+          <% } %>
+          <% if (emailIsExist !="" ) { %>
+          <%- include('./dataValidation/emailIsExist.ejs')%>
+          <% } %>
+          <% if (emailNotValid !="" ) { %>
+          <ul>
+            <!-- email or phone -->
+            <li>
+              <%= emailNotValid %>
+            </li>
+          </ul>
+          <% } %>
+          <% if(passwordsNotIdentical !="" ) { %>
+          <%- include('./dataValidation/passwordsNotIdentical.ejs')%>
+          <% } %>
+          <% if(passNotValid !="" ) { %>
+          <%- include('./dataValidation/pass.ejs')%>
+          <% }%>
+          <% if(yearNotValid !="" ) { %>
+          <%- include('./dataValidation/year.ejs')%>
+          <% }%>
+          <% if(errorMessage !="" ) { %>
+          <%= errorMessage %>
+          <% }%>
+  </div>
+  <% } %>
+    <!-- login -->
+    <div class="container d-flex flex-column flex-lg-row justify-content-evenly mt-5 pt-5">
+      <!-- heading -->
+      <div class="text-center text-lg-start mt-lg-5 pt-lg-5">
+        <h1 class="text-primary fw-bold fs-0">flexbook</h1>
+        <p class="w-75 mx-auto mx-lg-0 fs-4">
+          Flexbook helps you connect and share with people in your life.
+        </p>  
+      </div>
+      <!-- form -->
+      <div style="max-width: 28rem; width: 100%" class="mx-auto">
+        <div class="bg-white shadow rounded p-3 input-group-lg">
+          <form action="/login" method="post">
+            <input type="text" id="userName" class="form-control my-3 shadow-none" placeholder="Email address or phone number"
+              autocomplete="username" name="userName" >
+            <input type="password" id="password" class="form-control my-3 shadow-none" placeholder="Password" name="password"
+              autocomplete="current-password" >
+            <input type="submit" class="btn btn-primary w-100 my-3" value="Log In" id="loginBtn">
+          </form>
+          <% if(invalidLoginData != "") { %>
+            <div class="text-danger py-2 flash-msg">Invalid Email Or Password <i class="fa-solid fa-exclamation"></i></div>
+          <% } %>
+              <a href="#" class="text-decoration-none text-center">
+                <p>Forgetten Password?</p>
+              </a>
+              <!-- create a form -->
+              <hr>
+              <!-- create a model -->
+              <!-- Button trigger modal -->
+              <div class="text-center my-4">
+                <button class="btn btn-success btn-lg shadow-none" data-bs-toggle="modal" data-bs-target="#createModal">
+                  Create New Account
+                </button>
+              </div>
+              <!-- Modal -->
+              <div class="modal fade" id="createModal" tabindex="-1" aria-labelledby="createModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <!-- head -->
+                    <div class="modal-header">
+                      <div>
+                        <h2 class="modal-title fs-5" id="createModalLabel">Sign Up</h2>
+                        <p class="text-muted fs-7">It's quick and easy.</p>
+                      </div>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                      <form action="/api/users/createUser" method="post">
+                        <!-- name -->
+                        <div class="row">
+                          <div class="col">
+                            <input type="text" id="fname" class="form-control shadow-none" placeholder="First name"
+                              name="fn">
+                          </div>
+                          <div class="col">
+                            <input type="text" id="lname" class="form-control shadow-none" placeholder="Last name"
+                              name="ln">
+                          </div>
+                        </div>
+                        <!-- email & pass -->
+                        <input type="text" class="form-control my-3 shadow-none"
+                          placeholder="Mobile number or email address" name="emailOrPhone" id="emailOrPhone">
+                        <div class="d-flex align-items-center border my-3 border-1 ">
+                          <input type="password" id="passBox" class="form-control border-none shadow-none"
+                            placeholder="New Password" name="pass" autocomplete="new-password">
+                          <button id="eyeBtnPass" type="button"
+                            class="border-none bg-white general-background-important">
+                            <i class="fa-solid fa-eye-slash text-muted px-1"></i>
+                            <i class="fa-solid fa-eye d-none text-muted px-1"></i>
+                          </button>
+                        </div>
+                        <div class="d-flex align-items-center border my-3 border-1 ">
+                          <input type="password" id="passConfBox" class="form-control border-none shadow-none"
+                            placeholder="Confirm New Password" name="passConf">
+                          <button id="eyeBtnPassConf" type="button"
+                            class="border-none bg-white general-background-important">
+                            <i class="fa-solid fa-eye-slash text-muted px-1"></i>
+                            <i class="fa-solid fa-eye d-none text-muted px-1"></i>
+                          </button>
+                        </div>
+                        <!-- DBth -->
+                        <div class="row my-3">
+                          <span class="text-muted fs-7">
+                            Date Of Birth
+                            <i type="button" class="fa-solid fa-circle-question" data-bs-container="body"
+                              data-bs-toggle="popover" data-bs-placement="right"
+                              data-bs-content="You should be at least 12 year"></i>
+                          </span>
+                          <div class="col">
+                            <select id="day" class="form-select shadow-none " name="day">
+                              <% for (var i=1; i <=31 ; i++) { %>
+                                <option value=<%=i%>><%=i%>
+                                </option>
+                                <% } %>
+                            </select>
+                          </div>
+
+                          <div class="col">
+                            <select id="month" class="form-select shadow-none" name="month">
+                              <% { var months=['January', 'February' , 'March' , 'April' , 'May' , 'June' , 'July'
+                                , 'August' , 'September' , 'October' , 'November' , 'December' ]; var
+                                monthsValue=['Jan', 'Feb' , 'Mar' , 'Apr' , 'May' , 'June' , 'July' , 'Aug' , 'Sept'
+                                , 'Oct' , 'Nov' , 'Dec' ]; } %>
+                                <% for(var i=0; i<months.length ; i++ ) { %>
+                                  <option value=<%=monthsValue[i]%> ><%=months[i]%>
+                                  </option>
+                                  <% } %>
+                            </select>
+                          </div>
+
+                          <div class="col">
+                            <select id="year" class="form-select shadow-none" name="year">
+                              <!-- define date  -->
+                              <% const date=new Date(); %>
+                                <% for(var i=1920; i<=date.getFullYear(); i++) { %>
+                                  <option value=<%=i%>><%=i%>
+                                  </option>
+                                  <% } %>
+                            </select>
+                          </div>
+                        </div>
+
+                        <!-- gender -->
+                        <div class="row my-3" id="gender">
+                          <span class="text-muted fs-7">
+                            Gender
+                            <i type="button" class="fa-solid fa-circle-question" data-bs-container="body"
+                              data-bs-toggle="popover" data-bs-placement="right"
+                              data-bs-content="Lorem ipsum dolor sit amet."></i>
+                          </span>
+                          <div class="col">
+                            <div class="border rounded p-2">
+                              <label class="form-check-label" for="maleLabel">
+                                Male
+                              </label>
+                              <input class="form-check-input shadow-none" type="radio" name="gender" id="maleLabel"
+                                value="male" checked>
+                            </div>
+                          </div>
+                          <div class="col">
+                            <div class="border rounded p-2">
+                              <label class="form-check-label" for="femaleLabel">
+                                Female
+                              </label>
+                              <input class="form-check-input shadow-none" type="radio" name="gender" id="femaleLabel"
+                                value="female">
+                            </div>
+                          </div>
+                          <div class="col">
+                            <div class="border rounded p-2">
+                              <label class="form-check-label" for="customLabel">
+                                Custom
+                              </label>
+                              <input class="form-check-input shadow-none" type="radio" name="gender" id="customLabel"
+                                value="custom">
+                            </div>
+                          </div>
+                        </div>
+                        <!-- gender select -->
+                        <div class="d-none" id="genderSelect">
+                          <select class="form-select shadow-none">
+                            <option selected="1" value="" disabled="1">Select your pronoun</option>
+                            <option value="her">She: "Wish her a happy birthday!"</option>
+                            <option value="him">He: "Wish him a happy birthday!"</option>
+                            <option value="them">They: "Wish them a happy birthday!"</option>
+                          </select>
+                          <div class="my-3">
+                            <span class="text-muted fs-7">Your pronoun is visible for everyone.</span>
+                            <input type="text" class="form-control shadow-none" placeholder="Gender (Optional)"
+                              name="customGender">
+                          </div>
+                        </div>
+                        <!-- disclamiter -->
+                        <div>
+                          <span class="text-muted fs-7">
+                            Join Now To Our Community and enjoy !
+                          </span>
+                        </div>
+                        <!-- btn -->
+                        <div class="text-center mt-3">
+                          <input type="submit" id="signBtn" class="btn btn-success btn-lg shadow-none" value=" Sign Up "
+                            data-bs-dismiss="modal">
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- end -->
+        </div>
+
+        <!-- tag -->
+        <div class="my-5 pb-5 text-center">
+          <p class="fw-bold">
+            <a href="#" class="text-decoration-none text-dark">Create a Page </a>
+            <span class="fw-normal">for a celebrity, band or business. </span>
+          </p>
+        </div>
+      </div>
+    </div>
+    <!-- footer -->
+    <footer class="bg-white p-4 text-muted">
+      <div class="container">
+        <!-- language -->
+        <div class="d-flex flex-wrap">
+          <p class="mx-2 fs-7 mb-0">English (US)</p>
+          <p class="mx-2 fs-7 mb-0">English (Uk)</p>
+          <p class="mx-2 fs-7 mb-0">Spanish</p>
+          <p class="mx-2 fs-7 mb-0">French</p>
+          <p class="mx-2 fs-7 mb-0">Arabic</p>
+        </div>
+        <hr>
+        <!-- action -->
+        <div class="d-flex flex-wrap">
+          <p class="mx-2 fs-7 mb-0">Sign Up</p>
+          <p class="mx-2 fs-7 mb-0">Login</p>
+          <p class="mx-2 fs-7 mb-0">Messenger</p>
+          <p class="mx-2 fs-7 mb-0">Flexbook Lite</p>
+          <p class="mx-2 fs-7 mb-0">Watch</p>
+        </div>
+        <!-- copy -->
+        <div class="mt-4 mx-2">
+          <p class="fs-7">Flexbook &copy; <%= date.getFullYear() %>
+          </p>
+        </div>
+      </div>
+    </footer>

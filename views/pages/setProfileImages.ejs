@@ -1,0 +1,44 @@
+<link rel="stylesheet" href='../fontawesome/css/all.min.css'>
+<link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css">
+<link rel="stylesheet" href="../css/style.css">
+
+<div class="d-flex justify-content-between position-relative mt-5">
+  <!-- s 1 -->
+  <div class="container-fluid profile-section">
+    <div class="mx-1 bg-white rounded story " type="button" style="width: 100%; height: 100px !important;">
+      <form action="/upload_back_image" method="post" enctype="multipart/form-data">
+        <input type="file" accept="image/jpeg, image/png, image/jpg" name="backImage" id="back-img-input"
+          class="d-none">
+        <input type="submit" class="d-none">
+      </form>
+      <% if (pathbackIm != "") { %>
+      <img src="<%=pathbackIm%>" alt="story post" class="card-img-top" id="back-img">
+      <% } else { %>
+        <img src='../images/profile-background.png' alt="story post" class="card-img-top" id="back-img">
+      <% } %>
+      <p class="mb-0 text-center fs-6 fw-bold position-absolute top-0 py-2 text-center d-none" id="changeBack"
+        style="letter-spacing: 0.3rem !important; text-transform: capitalize !important;">upload background</p>
+      <div class="d-flex align-items-center justify-content-center position-relative"
+        style="max-height: 200px; max-width: 100%;">
+        <div class="position-absolute top-0  start-50 translate-middle" style="max-width: 200px; max-height: 200px">
+          <form action="/upload_person_image" method="post" enctype="multipart/form-data">
+            <input type="file" accept="image/jpeg, image/png, image/jpg" name="personImage" id="personal-img-input"
+              class="d-none">
+            <input type="submit" class="d-none">
+          </form>
+          <% if(pathPersonIm !="" ) { %>
+            <img src= "<%=pathPersonIm%>" alt="story post" class="rounded-circle" id="personal-img">
+            <% } else { %>
+              <img src="../images/profile-personal.png" alt="story post" class="rounded-circle" id="personal-img">
+            <% } %>
+        </div>
+        <div id="userName">Omar Khaled</div>
+        <i class="fas fa-plus-circle fs-3 text-primary bg-white rounded-circle position-absolute "
+          style="top: 2em;"></i>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="../bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="../js/main.js"></script>

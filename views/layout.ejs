@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <% if(PageTitle != "") { %>
+    <title><%= PageTitle %></title>
+    <% } else { %>
+    <title>flexbook</title>
+    <% } %>
+    <link rel="stylesheet" href='./fontawesome/css/all.min.css' class="temp-remove">
+    <link rel="stylesheet" href="./bootstrap/css/bootstrap.min.css" class="temp-remove">
+    <link rel="stylesheet" href="./css/style.css" class="temp-remove">
+    <!-- start  -->
+    <link
+      rel="icon"
+      href="https://static.xx.fbcdn.net/rsrc.php/yD/r/d4ZIVX-5C-b.ico?_nc_eui2=AeEM1qoR1cHvnT-opakFglLyaBWfmC2eGbdoFZ-YLZ4Zt6HRuOJAmZCbVfUmnHzl5bxP7tjDr9Tguy6It6DfmVTH" />
+    <!-- end  -->
+  </head>
+  <body>
+  <%- body %>
+  <script src="./bootstrap/js/bootstrap.bundle.min.js" class="temp-remove"></script>
+  <script src="./js/main.js" class="temp-remove"></script>
+  </body>
+
+</html>
